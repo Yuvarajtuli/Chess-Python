@@ -6,7 +6,11 @@ pawn = pawn.pawn()
 boardList = chessPieces.createObjects()
 pawnPos = []
 # move a pawn
-pawnPos = pawn.movePawn(boardList[0][1],2)
+x = int(input())
+x-=1
+y = int(input())
+y-=1
+pawnPos = pawn.movePawn(boardList[x][y],2)
 newpos = chessPieces.appendObjects(pawnPos)
 boardList = newpos
 func.show_graph(boardList)
