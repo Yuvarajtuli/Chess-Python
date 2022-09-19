@@ -48,7 +48,16 @@ class object(chess.chess):
         oldy = coordinates[1]
         newx = coordinates[2]
         newy = coordinates[3]
+        if oldx > 8 or oldx < 1:
+            return e.__newError(300,"Invalid position to move")
+        if oldy > 8 or oldy < 1:
+            return e.__newError(300,"Invalid position to move")
+        if newx > 8 or newx < 1:
+            return e.__newError(300,"Invalid position to move")
+        if newy > 8 or newy < 1:
+            return e.__newError(300,"Invalid position to move")
         objColor = coordinates[4]
+        objType = coordinates[5]
         if len(e.__board[newx - 1][newy - 1]) > 3 and objColor == e.__board[newx - 1][newy - 1][4]:
             return e.__newError(300,"Invalid position to move")
         elif len(e.__board[newx - 1][newy - 1]) > 3 and jump == 1 and objColor == e.__board[newx - 1][newy - 1][4]:
@@ -71,6 +80,10 @@ class object(chess.chess):
                 for i in range(start,end,move):
                     if i != (end-1) and len(e.__board[newx - 1][i - 1]) > 3:
                         return e.__newError(300,"Invalid position to move")
+                    elif i == (end-1) and len(e.__board[newx - 1][i - 1]) > 3 and objColor == e.__board[newx - 1][i - 1][4]:
+                        return e.__newError(300,"Invalid position to move")
+                    elif i == (end-1) and len(e.__board[newx - 1][i - 1]) > 3 and objColor != e.__board[newx - 1][i - 1][4] and objType == 'pawn':
+                        return e.__newError(300,"Invalid position to move")
             elif dir1 == chess.chess.direction[2] or dir1 == chess.chess.direction[3]:
                 if oldy != newy:
                     return e.__newError(300,"Invalid position to move")
@@ -87,6 +100,8 @@ class object(chess.chess):
                     move = -1
                 for i in range(start,end,move):
                     if i != (end-1) and len(e.__board[i - 1][newy - 1]) > 3:
+                        return e.__newError(300,"Invalid position to move")
+                    elif i == (end-1) and len(e.__board[i - 1][newy - 1]) > 3 and objColor == e.__board[newx - 1][i - 1][4]:
                         return e.__newError(300,"Invalid position to move")
         elif straight == 0 and digonal == 1 and jump ==0:
             mx = oldx - newx
