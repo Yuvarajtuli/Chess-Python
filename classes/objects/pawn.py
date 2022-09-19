@@ -13,7 +13,7 @@ class pawn:
         elif remarks=='shift':
             objColor = object[2]
         return x,y,objColor
-    def movePawn(self,object,step,cut='',remarks=''):
+    def movePawn(self,object,step=1,cut='',remarks=''):
         x,y,objcol = self.__getPawn(object,remarks)
         newy = y
         if y==2 or y==7:

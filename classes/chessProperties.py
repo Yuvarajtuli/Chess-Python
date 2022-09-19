@@ -15,6 +15,7 @@ class chess:
     maxBishop = 8
     minKnight = 2
     maxKnight = 8
+    direction = ['n','s','e','w','ne','nw','se','sw']
     __error = []
     def checkBoard(e,board):
         tot = 0
