@@ -37,20 +37,36 @@ class pawn:
             e.__error.append(300)
             e.__error.append("Invalid Move!")
         return e.__error
-    def movePawn(self,object,step=1,cut='',remarks=''):
+    def movePawn(self,object,step=1,cutDirection='',remarks=''):
         x,y,objcol,objtype = self.__getPawn(object,remarks)
         newy = y
+        newx = x
         dir1 = ''
-        err = self.__checkMovePawn(x,y,step)
-        if err:
-            return err
-        if objcol == 'white':
-            newy+=step
-            dir1 = 'n'
+        if cutDirection =='':
+            err = self.__checkMovePawn(x,y,step)
+            if err:
+                return err
+            if objcol == 'white':
+                newy+=step
+                dir1 = 'n'
+            else:
+                newy-=step
+                dir1 = 's'
         else:
-            newy-=step
-            dir1 = 's'
-        coordinates = [x,y,x,newy,objcol,objtype]
+            dir1 = cutDirection
+            if objcol == 'white' and dir1 == 'ne':
+                newx+=1
+                newy+=1
+            elif objcol == 'white' and dir1 == 'nw':
+                newx-=1
+                newy+=1
+            elif objcol == 'black' and dir1 == 'se':
+                newx+=1
+                newy-=1
+            elif objcol == 'black' and dir1 == 'sw':
+                newx-=1
+                newy-=1
+        coordinates = [x,y,newx,newy,objcol,objtype]
         err = obj.checkObject(coordinates,straight=1,direction=dir1)
         if err:
             print(err)

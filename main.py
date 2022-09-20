@@ -22,7 +22,11 @@ pawnPos = pawn.movePawn(pawnPos[2:6],remarks='shift')
 newpos = chessPieces.appendObjects(pawnPos)
 boardList = newpos
 func.show_graph(boardList)
-pawnPos = pawn.movePawn(pawnPos[2:6],remarks='shift')
+pawnPos = pawn.movePawn(pawnPos[2:6],cutDirection='se',remarks='shift')
+newpos = chessPieces.appendObjects(pawnPos)
+boardList = newpos
+func.show_graph(boardList)
+pawnPos = pawn.movePawn(pawnPos[2:6],cutDirection='se',remarks='shift')
 newpos = chessPieces.appendObjects(pawnPos)
 boardList = newpos
 func.show_graph(boardList)

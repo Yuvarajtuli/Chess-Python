@@ -39,8 +39,14 @@ class object(chess.chess):
         objColor = e.__board[coordinates[0]-1][coordinates[1]-1][4]
         del e.__board[coordinates[0]-1][coordinates[1]-1][3]
         del e.__board[coordinates[0]-1][coordinates[1]-1][3]
-        e.__board[coordinates[2]-1][coordinates[3]-1].append(objName)
-        e.__board[coordinates[2]-1][coordinates[3]-1].append(objColor)
+        if len(e.__board[coordinates[2]-1][coordinates[3]-1]) <= 3:
+            e.__board[coordinates[2]-1][coordinates[3]-1].append(objName)
+            e.__board[coordinates[2]-1][coordinates[3]-1].append(objColor)
+        elif len(e.__board[coordinates[2]-1][coordinates[3]-1]) > 3:
+            e.__board[coordinates[2]-1][coordinates[3]-1].pop(3)
+            e.__board[coordinates[2]-1][coordinates[3]-1].pop(3)
+            e.__board[coordinates[2]-1][coordinates[3]-1].append(objName)
+            e.__board[coordinates[2]-1][coordinates[3]-1].append(objColor)
         return e.__board
     def checkObject(e,coordinates,straight=0,digonal=0,direction='',jump=0,remarks=''):
         dir1 = direction.lower()
