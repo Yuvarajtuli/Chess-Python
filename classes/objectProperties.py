@@ -74,8 +74,8 @@ class object(chess.chess):
                     end = newy+1
                     move = 1
                 elif newy<oldy:
-                    start = newy-1
-                    end = oldy-1
+                    start = oldy-1
+                    end =  newy-1
                     move = -1
                 for i in range(start,end,move):
                     if i != (end-1) and len(e.__board[newx - 1][i - 1]) > 3:
@@ -95,8 +95,8 @@ class object(chess.chess):
                     end = newx+1
                     move = 1
                 elif newx < oldx:
-                    start = newx-1
-                    end = oldx-1
+                    start = oldx-1
+                    end = newx-1
                     move = -1
                 for i in range(start,end,move):
                     if i != (end-1) and len(e.__board[i - 1][newy - 1]) > 3:
