@@ -1,4 +1,7 @@
 from operator import index, le
+import re
+import classes.objectProperties as pieces
+piece = pieces.object()
 import numpy
 import matplotlib.pyplot as plt
 def show_graph(board):
@@ -20,6 +23,7 @@ def get_move():
     return move
 def convert_move(move):
     move = move.lower()
+    move = move.strip()
     mlen = len(move)
     mAlpha = ['a','b','c','d','e','f','g','h']
     mSymbol = ['k','q','b','n','r','+','x','o-o','o-o-o','=','#']
@@ -62,3 +66,54 @@ def convert_move(move):
         res.append(y)
         res.append(objName)
     return res
+def getDir(ox,oy,nx,ny):
+        if ox == nx:
+            if ny > oy:
+                dir1 = 's'
+            else:
+                dir1 = 'n'
+        elif ox < nx:
+            if ny > oy:
+                dir1 = 'sw'
+            else:
+                dir1 = 'nw'
+        elif ox > nx:
+            if ny > oy:
+                dir1 = 'se'
+            else:
+                dir1 = 'ne'
+        return dir1
+def getPreviousPos(ox,oy,nx,ny,objColor,objType,moveNo,rotation=1):
+    err = []
+    if objType == 'pawn':
+        if objColor == 'white':
+            ny-=1
+        else:
+            ny+=1
+        d = getDir(ox,oy,nx,ny)
+        coordinates =[ox,oy,nx,ny,objColor,objType]
+        if rotation==1 and err:
+            del err
+        err = piece.backtrackObject(coordinates,straight=1,direction=d)
+        if moveNo !=1:
+            del err[0]
+            del err[0] 
+        if rotation!=1:
+            del err[0]
+            del err[0]
+        if err[0]==200:
+            # print(err)
+            rotation+=1
+            return getPreviousPos(ox,oy,nx,ny,objColor,objType,rotation)  
+        elif err[0]==201:
+            # print(err)
+            bc = [coordinates[2],coordinates[3],coordinates[0],coordinates[1],objColor,objType]
+            return bc                   
+def checkTurn(moveNumber):       
+    if moveNumber == 1:
+        turn = 'white'
+    elif moveNumber%2==0:
+        turn = 'black'
+    else:
+        turn='white'
+    return turn

@@ -1,3 +1,4 @@
+import re
 import classes.chessProperties as chess
 import classes.boardProperties as board
 board = board.Board()
@@ -35,6 +36,7 @@ class object(chess.chess):
         mainBoard = self.__board
         return self.__board
     def appendObjects(e,coordinates):
+        # print("append coordinates are :",coordinates)
         objName = e.__board[coordinates[0]-1][coordinates[1]-1][3]
         objColor = e.__board[coordinates[0]-1][coordinates[1]-1][4]
         del e.__board[coordinates[0]-1][coordinates[1]-1][3]
@@ -135,3 +137,14 @@ class object(chess.chess):
                 elif dir1 == chess.chess.direction[6] or dir1 == chess.chess.direction[7]:
                     if i != (end - 1) and len(e.__board[i - 1][(oldy - cnt) - 1]) > 3:
                         return e.__newError(300,"Invalid position to move")
+    def backtrackObject(e,coordinates,straight=0,digonal=0,direction='',jump=0,remarks=''):
+        newx,newy,objColor,objType = coordinates[2],coordinates[3],coordinates[4],coordinates[5]
+        if len(e.__board[newx - 1][newy - 1]) > 3 and objColor == e.__board[newx - 1][newy - 1][4] and objType == e.__board[newx - 1][newy - 1][3]:
+            return e.__newError(201,"Object Found")
+        else:
+            err1 = e.checkObject(coordinates,straight,digonal,direction,jump,remarks)
+            if err1:
+                # print(err1)
+                return err1
+            else:
+                return e.__newError(200,"Valid Move")
