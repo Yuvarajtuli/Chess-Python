@@ -1,9 +1,6 @@
-import classes.objectProperties as pieces
-import classes.objects.pawn as pawn
+from classes.objectProperties import object as chessPieces
 from classes.useObject import moveObject
 from functions import checkTurn,convert_move,getValidMove,show_graph
-chessPieces = pieces.object()
-pawn = pawn.pawn()
 boardList = chessPieces.createObjects()
 # move a pawn
 moveNo,game = 1,True

@@ -1,5 +1,4 @@
-import classes.objectProperties as obj
-obj = obj.object()
+from classes.objectProperties import object as obj
 class pawn:
     __digonal,__straight,__startMove,__jump,__step,__error = 0,1,[1,2],0,1,[]
     def __getDir(e,ox,oy,nx,ny):

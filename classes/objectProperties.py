@@ -1,8 +1,6 @@
-import re
-import classes.chessProperties as chess
-import classes.boardProperties as board
-board = board.Board()
-class object(chess.chess):
+from classes.chessProperties import chess as chess
+from classes.boardProperties import Board as board
+class object():
     __objectName = ["pawn","rook","knight","bishop","queen","king"]
     __board = board.getBoard()
     __error = []
@@ -20,9 +18,9 @@ class object(chess.chess):
         return e.__error
     def __getObjectColor(self,y):
         if y<=2:
-            return chess.chess.peiceColors[0]
+            return chess.peiceColors[0]
         elif y>=7:
-            return chess.chess.peiceColors[1]
+            return chess.peiceColors[1]
     def createObjects(self):
         cnt = 0
         for i in range(self.maxColNumber_X):

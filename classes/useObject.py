@@ -1,8 +1,5 @@
-from numpy import var
-import classes.objectProperties as pieces
-import classes.objects.pawn as pawn
-chessPieces = pieces.object()
-pawn = pawn.pawn()
+from classes.objectProperties import object as chessPieces
+from classes.objects.pawn import pawn as pawn
 def moveObject(movement):
     if movement!=[]:
         if movement[5] == 'pawn':
