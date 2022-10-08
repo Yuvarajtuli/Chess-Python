@@ -19,42 +19,48 @@ class pawn:
             else:
                 dir1 = 'sw'
         return dir1
-    def __checkMovePawn(e,y,step):
-        if step > 0:
-            if step < 3:
-                if step == 2:
-                    if y != 2:
-                        if y!=7:
-                            e.__error.append(300)
-                            e.__error.append("Invalid Move!")
-                    elif y!=7:
-                        if y!=2:
-                            e.__error.append(300)
-                            e.__error.append("Invalid Move!")
-            elif step >= 3:
+    def __checkMovePawn(e,ox,oy,nx,ny,ocol,otype,step,d):
+        if d=='n' or d=='s':
+            if step > 0:
+                if step < 3:
+                    if step == 2:
+                        if oy != 2:
+                            if oy!=7:
+                                e.__error.append(300)
+                                e.__error.append("Invalid Move!")
+                        elif oy!=7:
+                            if oy!=2:
+                                e.__error.append(300)
+                                e.__error.append("Invalid Move!")
+                elif step >= 3:
+                    e.__error.append(300)
+                    e.__error.append("Invalid Move!")
+            else:
                 e.__error.append(300)
                 e.__error.append("Invalid Move!")
-        else:
-            e.__error.append(300)
-            e.__error.append("Invalid Move!")
-        return e.__error
+            return e.__error
     def movePawn(self,object):
         ox,oy,nx,ny,objcol,objtype = object[0],object[1],object[2],object[3],object[4],object[5]
         step,dir1 = abs(ny-oy),self.__getDir(ox,oy,nx,ny)
-        err = self.__checkMovePawn(oy,step)
+        err = self.__checkMovePawn(ox,oy,nx,ny,objcol,objtype,step,dir1)
         if err:
-            return err
+            return err 
         if dir1!='n' and dir1!='s':
             stepx = abs(nx-ox)
             stepy = abs(ny-oy)
             if stepx>1 or stepy>1:
                 self.__error.append(300)
                 self.__error.append("Invalid Move!")
-                return self.__error            
-        coordinates = [ox,oy,nx,ny,objcol,objtype]
-        err = obj.checkObject(coordinates,straight=1,direction=dir1)
-        if err:
-            print(err)
-            return err
-        return coordinates
+                return self.__error   
+            coordinates = [ox,oy,nx,ny,objcol,objtype]
+            err = obj.checkObject(coordinates,straight=0,digonal=1,direction=dir1,remarks='cut')
+            if err:
+                return err
+            return coordinates
+        else:  
+            coordinates = [ox,oy,nx,ny,objcol,objtype]
+            err = obj.checkObject(coordinates,straight=1,direction=dir1)
+            if err:
+                return err
+            return coordinates
               

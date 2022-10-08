@@ -1,8 +1,3 @@
-from operator import index, le
-import re
-import classes.objectProperties as pieces
-piece = pieces.object()
-import numpy
 import matplotlib.pyplot as plt
 def show_graph(board):
     ax = plt.axes()
@@ -66,49 +61,6 @@ def convert_move(move):
         res.append(y)
         res.append(objName)
     return res
-def getDir(ox,oy,nx,ny):
-        if ox == nx:
-            if ny > oy:
-                dir1 = 's'
-            else:
-                dir1 = 'n'
-        elif ox < nx:
-            if ny > oy:
-                dir1 = 'sw'
-            else:
-                dir1 = 'nw'
-        elif ox > nx:
-            if ny > oy:
-                dir1 = 'se'
-            else:
-                dir1 = 'ne'
-        return dir1
-def getPreviousPos(ox,oy,nx,ny,objColor,objType,moveNo,rotation=1):
-    err = []
-    if objType == 'pawn':
-        if objColor == 'white':
-            ny-=1
-        else:
-            ny+=1
-        d = getDir(ox,oy,nx,ny)
-        coordinates =[ox,oy,nx,ny,objColor,objType]
-        if rotation==1 and err:
-            del err
-        err = piece.backtrackObject(coordinates,straight=1,direction=d)
-        if moveNo !=1:
-            del err[0]
-            del err[0] 
-        if rotation!=1:
-            del err[0]
-            del err[0]
-        if err[0]==200:
-            # print(err)
-            rotation+=1
-            return getPreviousPos(ox,oy,nx,ny,objColor,objType,rotation)  
-        elif err[0]==201:
-            # print(err)
-            bc = [coordinates[2],coordinates[3],coordinates[0],coordinates[1],objColor,objType]
-            return bc                   
 def checkTurn(moveNumber):       
     if moveNumber == 1:
         turn = 'white'
@@ -117,3 +69,23 @@ def checkTurn(moveNumber):
     else:
         turn='white'
     return turn
+def getPreviousPos(ox,oy,otype,nx,ny,ntype,objColor):
+    coordinate = []
+    if otype == ntype:
+        coordinate.append(ox)
+        coordinate.append(oy)
+        coordinate.append(nx)
+        coordinate.append(ny)
+        coordinate.append(objColor)
+        coordinate.append(ntype)
+    else:
+        return [300,"Peice Seleted and Peice Moved are different!"]
+    if len(coordinate)>6:
+        del coordinate[0]
+        del coordinate[0]
+        del coordinate[0]
+        del coordinate[0]
+        del coordinate[0]
+        del coordinate[0]
+    return coordinate
+        

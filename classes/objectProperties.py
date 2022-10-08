@@ -51,6 +51,8 @@ class object(chess.chess):
             e.__board[coordinates[2]-1][coordinates[3]-1].append(objColor)
         return e.__board
     def checkObject(e,coordinates,straight=0,digonal=0,direction='',jump=0,remarks=''):
+        remarks = remarks.strip()
+        remarks = remarks.lower()
         dir1 = direction.lower()
         oldx = coordinates[0]
         oldy = coordinates[1]
@@ -127,24 +129,22 @@ class object(chess.chess):
             elif oldx > newx and oldy < newy:
                 start = newx-1
                 end = oldx - 1
-                move = -1
+                move = 1
             cnt = 0
             for i in range(start,end,move):
                 cnt+=1
+                # print("start : ",start," end : ",end," move : ",move," count : ",cnt," length at that pos : ",len(e.__board[i - 1][(oldy + cnt) - 1])," remarks : ",remarks)
                 if (dir1 == chess.chess.direction[4] or dir1 == chess.chess.direction[5]):
                     if i != (end - 1) and len(e.__board[i - 1][(oldy + cnt) - 1]) > 3:
+                        return e.__newError(300,"Invalid position to move")
+                    elif i==(end-1) and len(e.__board[i - 1][(oldy + cnt) - 1]) > 3 and objColor == e.__board[i - 1][(oldy + cnt) - 1][4]:
+                        return e.__newError(300,"Invalid position to move")
+                    elif remarks == 'cut' and i==(end-1) and len(e.__board[i - 1][(oldy + cnt) - 1]) <= 3:
                         return e.__newError(300,"Invalid position to move")
                 elif dir1 == chess.chess.direction[6] or dir1 == chess.chess.direction[7]:
                     if i != (end - 1) and len(e.__board[i - 1][(oldy - cnt) - 1]) > 3:
                         return e.__newError(300,"Invalid position to move")
-    def backtrackObject(e,coordinates,straight=0,digonal=0,direction='',jump=0,remarks=''):
-        newx,newy,objColor,objType = coordinates[2],coordinates[3],coordinates[4],coordinates[5]
-        if len(e.__board[newx - 1][newy - 1]) > 3 and objColor == e.__board[newx - 1][newy - 1][4] and objType == e.__board[newx - 1][newy - 1][3]:
-            return e.__newError(201,"Object Found")
-        else:
-            err1 = e.checkObject(coordinates,straight,digonal,direction,jump,remarks)
-            if err1:
-                # print(err1)
-                return err1
-            else:
-                return e.__newError(200,"Valid Move")
+                    elif i==(end-1) and len(e.__board[i - 1][(oldy + cnt) - 1]) > 3 and objColor == e.__board[i - 1][(oldy + cnt) - 1][4]:
+                        return e.__newError(300,"Invalid position to move")
+                    elif remarks == 'cut' and i==(end-1) and len(e.__board[i - 1][(oldy + cnt) - 1]) <= 3:
+                        return e.__newError(300,"Invalid position to move")

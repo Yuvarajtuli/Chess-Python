@@ -1,21 +1,23 @@
 import classes.objectProperties as pieces
 import classes.objects.pawn as pawn
 from classes.useObject import moveObject
-import functions as func
+from functions import checkTurn,convert_move,getPreviousPos,show_graph
 chessPieces = pieces.object()
 pawn = pawn.pawn()
 boardList = chessPieces.createObjects()
 # move a pawn
 moveNo,game = 1,True
 while game == True:
-    turn = func.checkTurn(moveNo)
-    move = input("Enter Move for "+turn)
-    newmove = func.convert_move(move)
-    moves = func.getPreviousPos(newmove[0],newmove[1],newmove[0],newmove[1],turn,newmove[2],moveNo=moveNo)
+    turn = checkTurn(moveNo)
+    peiceSelect = input("Select a peice for "+turn+" which has to be moved : ")
+    peiceMove = input("Enter Move for "+turn)
+    oldMove = convert_move(peiceSelect)
+    newMove = convert_move(peiceMove)
+    moves = getPreviousPos(oldMove[0],oldMove[1],oldMove[2],newMove[0],newMove[1],newMove[2],turn)
     newBoard = moveObject(moves)
     if len(newBoard) > 2:
         boardList = newBoard
-        func.show_graph(boardList)
+        show_graph(boardList)
         if moveNo%2==0:
             ans = input("Do u want to continue(Y,N)?")
             if ans.lower() != 'y':
@@ -23,3 +25,6 @@ while game == True:
         moveNo+=1
     else:
         print(newBoard)
+        del newBoard[0]
+        del newBoard[0]
+    
