@@ -1,4 +1,5 @@
-from classes.objectProperties import object as obj
+import classes.objectProperties as obj
+obj = obj.object()
 class pawn:
     __digonal,__straight,__startMove,__jump,__step,__error = 0,1,[1,2],0,1,[]
     def __getDir(e,ox,oy,nx,ny):
@@ -39,6 +40,7 @@ class pawn:
                 e.__error.append("Invalid Move!")
             return e.__error
     def movePawn(self,object):
+        # print("hello")
         ox,oy,nx,ny,objcol,objtype = object[0],object[1],object[2],object[3],object[4],object[5]
         step,dir1 = abs(ny-oy),self.__getDir(ox,oy,nx,ny)
         err = self.__checkMovePawn(ox,oy,nx,ny,objcol,objtype,step,dir1)

@@ -1,16 +1,16 @@
-from classes.chessProperties import chess as chess
-class Board():
-    __maxX = chess.maxColNumber_X
-    __maxY = chess.maxRowNumber_Y
+import classes.chessProperties as c
+class Board(c.chess):
+    __maxX = c.chess.maxColNumber_X
+    __maxY = c.chess.maxRowNumber_Y
     __sqColNumber_X = 1
     __sqRowNumber_Y = 0
     __sqColor = ""
     def __getColor(self):
         coordinateSum = self.__sqColNumber_X + self.__sqRowNumber_Y
         if coordinateSum%2 == 0:
-            self.__sqColor = chess.squareColors[1]
+            self.__sqColor = c.chess.squareColors[1]
         else:
-            self.__sqColor = chess.squareColors[0]
+            self.__sqColor = c.chess.squareColors[0]
         return self.__sqColor
     # def getBoard(e,x=0,y=0):
     def getBoard(e):
@@ -25,7 +25,7 @@ class Board():
                 board[i][j].append(e.__getColor())
             e.__sqColNumber_X +=1
             e.__sqRowNumber_Y = 0
-        error = chess.checkBoard(e,board)
+        error = c.chess.checkBoard(e,board)
         if error == None:
             return board
         else:

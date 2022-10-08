@@ -1,26 +1,27 @@
-from classes.chessProperties import chess as chess
-from classes.boardProperties import Board as board
-class object():
-    __objectName = ["pawn","rook","knight","bishop","queen","king"]
+import classes.chessProperties as chess
+import classes.boardProperties as board
+board = board.Board()
+class object(chess.chess):
+    objectName = ["pawn","rook","knight","bishop","queen","king"]
     __board = board.getBoard()
     __error = []
     def __getObjectStartPos(self,x,y):
-        if y == 2 or y == 7:return self.__objectName[0]
+        if y == 2 or y == 7:return self.objectName[0]
         if y==1 or y==8:
-            if x==1 or x==8:return self.__objectName[1]
-            elif x==2 or x==7:return self.__objectName[2]
-            elif x==3 or x==6:return self.__objectName[3]
-            elif x==4:return self.__objectName[4]
-            elif x==5:return self.__objectName[5]
+            if x==1 or x==8:return self.objectName[1]
+            elif x==2 or x==7:return self.objectName[2]
+            elif x==3 or x==6:return self.objectName[3]
+            elif x==4:return self.objectName[4]
+            elif x==5:return self.objectName[5]
     def __newError(e,status,msg):
         e.__error.append(status)
         e.__error.append(msg)
         return e.__error
     def __getObjectColor(self,y):
         if y<=2:
-            return chess.peiceColors[0]
+            return chess.chess.peiceColors[0]
         elif y>=7:
-            return chess.peiceColors[1]
+            return chess.chess.peiceColors[1]
     def createObjects(self):
         cnt = 0
         for i in range(self.maxColNumber_X):
