@@ -16,7 +16,7 @@ def show_graph(board):
 def get_move():
     move = input()
     return move
-def convert_move(move):
+def convert_move(move,remarks=''):
     move = move.lower()
     move = move.strip()
     mlen = len(move)
@@ -42,7 +42,7 @@ def convert_move(move):
         res.append(x)
         res.append(y)
         res.append(objName)
-    elif mlen == 4:
+    elif mlen == 4 and remarks=='':
         if move.find("=") != -1:
             si = mSymbol.index(move[len(move)-1])
             objName = mSName[si]
@@ -69,8 +69,36 @@ def checkTurn(moveNumber):
     else:
         turn='white'
     return turn
-def getPreviousPos(ox,oy,otype,nx,ny,ntype,objColor):
+def getDir(ox,oy,nx,ny):
+        if ox == nx:
+            if ny > oy:
+                dir1 = 'n'
+            else:
+                dir1 = 's'
+        elif ox < nx:
+            if ny > oy:
+                dir1 = 'ne'
+            else:
+                dir1 = 'se'
+        elif ox > nx:
+            if ny > oy:
+                dir1 = 'nw'
+            else:
+                dir1 = 'sw'
+        return dir1
+def getValidMove(ox,oy,otype,nx,ny,ntype,objColor):
     coordinate = []
+    d = getDir(ox,oy,nx,ny)
+    if objColor == 'white':
+        if d!='n':
+            if d!='ne':
+                if d!='nw':
+                    return [300,"White's Turn"]
+    else:
+        if d!='s':
+            if d!='se':
+                if d!='sw':
+                    return [300,"Black's Turn"]
     if otype == ntype:
         coordinate.append(ox)
         coordinate.append(oy)
@@ -88,4 +116,3 @@ def getPreviousPos(ox,oy,otype,nx,ny,ntype,objColor):
         del coordinate[0]
         del coordinate[0]
     return coordinate
-        
