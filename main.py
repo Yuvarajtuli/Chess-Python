@@ -22,6 +22,7 @@ while game == True:
     newBoard = moveObject(moves)
     if len(newBoard) > 2:
         boardList = newBoard
+        show_graph(boardList)
         if moveNo%2==0:
             ans = input("Do u want to continue(Y,N)?")
             if ans.lower() != 'y':
@@ -31,6 +32,3 @@ while game == True:
         print(newBoard)
         del newBoard[0]
         del newBoard[0]
-        # print(boardList)
-show_graph(boardList)
-    
